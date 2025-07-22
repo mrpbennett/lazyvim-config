@@ -7,3 +7,11 @@ vim.g.lazyvim_python_ruff = "ruff"
 
 -- relative numbers
 vim.wo.relativenumber = true
+
+-- disable comments on new lines
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "*",
+    callback = function()
+        vim.opt_local.formatoptions:remove({ 'r', 'o' })
+    end,
+})
