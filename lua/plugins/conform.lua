@@ -1,14 +1,11 @@
 return {
+  {
     "stevearc/conform.nvim",
-    opts = {
-        formatters_by_ft = {
-            yaml = { "yamlfmt" }, -- Replace default with K8s-friendly formatter
-        },
-        formatters = {
-            yamlfmt = {
-                command = "yamlfmt",
-                args = { "-formatter", "basic", "-indentless_arrays=true" },
-            },
-        },
-    },
+    opts = function(_, opts)
+      -- take LazyVim’s default prettier config and prepend your args
+      opts.formatters.prettier = vim.tbl_extend("force", opts.formatters.prettier or {}, {
+        prepend_args = { "--single-quote", "--semi" },
+      })
+    end,
+  },
 }

@@ -4,7 +4,7 @@
 local opts = { noremap = true, silent = true }
 
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", opts)
-vim.api.nvim_set_keymap("i", "jk", "<Esc", opts)
+vim.api.nvim_set_keymap("i", "jk", "<Esc>", opts)
 
 -- Move lines up and down
 -- Normal
