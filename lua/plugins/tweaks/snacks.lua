@@ -1,17 +1,31 @@
--- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#general
 return {
-  -- lazy.nvim
-  {
-    "folke/snacks.nvim",
-    ---@type snacks.Config
-    opts = {
-      picker = {
-        sources = {
-          explorer = {
-            ignored = true,
-          },
+  "folke/snacks.nvim",
+  priority = 1000,
+  lazy = false,
+  ---@type snacks.Config
+  opts = {
+    ---
+    dashboard = {
+      enabled = true,
+      example = "compact_files",
+    },
+    ---
+    dim = {
+      enabled = true,
+    },
+    ---
+    image = {
+      enabled = true,
+    },
+    ---
+    picker = {
+      sources = {
+        explorer = {
+          ignored = true,
         },
       },
     },
+    ---
   },
+  ---
 }
