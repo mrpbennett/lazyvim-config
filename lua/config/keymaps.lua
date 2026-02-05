@@ -23,7 +23,24 @@ vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up (inse
 
 -- Pop a terminal window with K9s
 if vim.fn.executable("k9s") == 1 then
-  vim.keymap.set("n", "<leader>k9", function()
+  vim.keymap.set("n", "<leader>tk", function()
     Snacks.terminal("k9s")
   end, { desc = "K9s (Kubernetes)" })
+
+  -- Add icon via which-key
+  require("which-key").add({
+    { "<leader>tk", icon = { icon = "󱃾", color = "blue" } },
+  })
+end
+
+-- Pop Posting terminal
+if vim.fn.executable("posting") == 1 then
+  vim.keymap.set("n", "<leader>ta", function()
+    Snacks.terminal("posting")
+  end, { desc = "Posting API" })
+
+  -- Add icon via which-key
+  require("which-key").add({
+    { "<leader>ta", icon = { icon = "󱂛", color = "orange" } },
+  })
 end
