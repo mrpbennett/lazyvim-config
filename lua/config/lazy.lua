@@ -18,9 +18,12 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+
     -- import/override with your plugins
     { import = "plugins" },
-    { import = "plugins/tweaks" },
+
+    -- Default LazyVim Plugins but with my custom adjustments.
+    { import = "plugins/custom" },
 
     -- Use Eslint for fix on save and prettier for formatting
     { import = "lazyvim.plugins.extras.linting.eslint" },

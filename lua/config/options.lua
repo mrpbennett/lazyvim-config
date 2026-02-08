@@ -2,6 +2,7 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 --
+vim.g.codeium_os = "Darwin"
 -- Stop auto comments
 vim.opt.formatoptions:remove({ "c", "r", "o" })
 
