@@ -10,5 +10,8 @@ vim.opt.formatoptions:remove({ "c", "r", "o" })
 vim.g.lazyvim_python_lsp = "ty"
 vim.g.lazyvim_python_ruff = "ruff"
 
+-- Disable the option to require a Prettier config file
+vim.g.lazyvim_prettier_needs_config = false
+
 -- disable swapfile
 vim.opt.swapfile = false
