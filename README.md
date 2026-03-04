@@ -1,407 +1,208 @@
-# Neovim Configuration
+# Neovim Config
 
-A comprehensive Neovim setup powered by [LazyVim](https://lazyvim.github.io/), customized for full-stack development with Kubernetes, Python, Go, and database workflows.
+My daily-driver Neovim setup, built on [LazyVim](https://lazyvim.github.io/) and tuned for full-stack work across Python, Go, Rust, TypeScript, Kubernetes, Terraform, and more.
 
-## Table of Contents
+## What You Get
 
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Directory Structure](#directory-structure)
-- [Plugins](#plugins)
-- [Keybindings](#keybindings)
-- [Language Support](#language-support)
-- [Snippets](#snippets)
-- [Kubernetes Integration](#kubernetes-integration)
-- [Database Integration](#database-integration)
-- [Customization](#customization)
-
----
-
-## Overview
-
-This configuration extends LazyVim with:
-
-- **Modern completion** using blink.cmp with LSP and snippet support
-- **Kubernetes-native development** with schema validation and K9s integration
-- **Database management** via Dadbod with a pre-configured PostgreSQL connection
-- **Clean UI** featuring Catppuccin theme, minimal lualine, and snacks.picker
-
----
+- **Catppuccin theme** that auto-switches between light (latte) and dark (mocha) based on your macOS appearance
+- **15+ language extras** with LSP, formatting, linting, and snippets out of the box
+- **Super-tab completion** via blink.cmp — tab through suggestions, snippets expand inline
+- **Built-in tool terminals** for K9s, lazydocker, and posting (API client) — only shows up if you have them installed
+- **Auto-save** on every change — no more `:w` muscle memory needed
+- **Database UI** via Dadbod for running queries without leaving the editor
+- **Git blame** inline with commit summaries, dates, and authors
 
 ## Prerequisites
 
-| Tool        | Purpose              | Required                                                 |
-| ----------- | -------------------- | -------------------------------------------------------- |
-| Neovim 0.9+ | Editor               | Yes                                                      |
-| Git         | Plugin manager       | Yes                                                      |
-| ripgrep     | Search functionality | Yes                                                      |
-| fd          | File finding         | Yes                                                      |
-| k9s         | Kubernetes CLI       | Optional                                                 |
-| kubectl     | Kubernetes access    | Optional                                                 |
-| yamlfmt     | YAML formatting      | Optional (`go install github.com/google/yamlfmt@latest`) |
+| Tool | Purpose | Install |
+| --- | --- | --- |
+| **Neovim 0.10+** | Editor | [neovim.io](https://neovim.io) |
+| **Git** | Plugin management | Required |
+| **ripgrep** | Fast search | `brew install ripgrep` |
+| **fd** | File finding | `brew install fd` |
+| **yamlfmt** | YAML formatting | `go install github.com/google/yamlfmt@latest` |
+| **sqruff** | SQL formatting | Optional |
+| **k9s** | Kubernetes TUI | Optional — `brew install k9s` |
+| **lazydocker** | Docker TUI | Optional — `brew install lazydocker` |
+| **posting** | API client TUI | Optional — `pipx install posting` |
 
----
-
-## Directory Structure
+## Project Layout
 
 ```
 ~/.config/nvim/
-├── init.lua                 # Entry point - bootstraps lazy.nvim
-├── .lazy.lua                # Lazy config + database setup
-├── lazyvim.json            # LazyVim extras configuration
-├── lazy-lock.json          # Pinned plugin versions
-├── stylua.toml             # Lua formatter config
-├── .neoconf.json           # Neodev/Neoconf settings
-├── .gitignore             # Git ignore rules
-├── snippets/               # LuaSnip snippets
-│   ├── kubernetes.json    # K8s resource snippets
-│   ├── python.json
-│   ├── javascript.json
-│   ├── dockerfile.json
-│   └── package.json
+├── init.lua                  # Entry point — bootstraps lazy.nvim
+├── .lazy.lua                 # Extra lazy config + DB connections
+├── lazyvim.json              # Enabled LazyVim extras
+├── lazy-lock.json            # Pinned plugin versions
+├── stylua.toml               # Lua formatter settings
+│
+├── snippets/                 # Custom LuaSnip snippets
+│   ├── kubernetes.json       # K8s manifests (deployment, service, ingress, etc.)
+│   ├── python.json           # main, requests, logging, SFTP, classes
+│   ├── javascript.json       # React, TypeScript, fetch patterns
+│   ├── dockerfile.json       # Production Dockerfile with uv
+│   └── package.json          # Snippet registration
+│
 └── lua/
     ├── config/
-    │   ├── lazy.lua       # Plugin manager setup
-    │   ├── options.lua    # Editor options
-    │   ├── keymaps.lua    # Custom keybindings
-    │   └── autocmds.lua   # Autocommands
+    │   ├── lazy.lua          # Plugin manager setup
+    │   ├── options.lua       # Editor options + macOS dark mode detection
+    │   ├── keymaps.lua       # Custom keybindings
+    │   └── autocmds.lua      # Auto-save and other autocommands
     └── plugins/
-        ├── colorschema.lua    # Catppuccin theme
-        ├── kubernetes.lua     # K8s YAML schemas
-        └── tweaks/            # Plugin customizations
-            ├── blink.lua      # Completion config
-            ├── conform.lua    # Formatter overrides
-            ├── lualine.lua    # Status line style
-            ├── noice.lua      # Cmdline UI
-            └── snacks.lua     # Picker settings
+        ├── colorschema.lua   # Catppuccin + alternate themes
+        ├── codediff.lua      # Side-by-side diff viewer
+        ├── git-blame.lua     # Inline git blame
+        └── custom/           # Plugin overrides
+            ├── blink.lua     # Completion (super-tab preset)
+            ├── conform.lua   # Formatters (yamlfmt, sqruff)
+            ├── lualine.lua   # Status line styling
+            ├── nvim-lint.lua # Linter config (yamllint)
+            ├── snacks.lua    # Dashboard, picker, dim, image
+            └── which-key.lua # Tool group registration
 ```
-
----
-
-## Plugins
-
-### Core Framework
-
-| Plugin                                          | Description        |
-| ----------------------------------------------- | ------------------ |
-| [lazy.nvim](https://github.com/folke/lazy.nvim) | Plugin manager     |
-| [LazyVim](https://github.com/LazyVim/LazyVim)   | Base configuration |
-
-### Editor Enhancement
-
-| Plugin                                                       | Description                |
-| ------------------------------------------------------------ | -------------------------- |
-| [blink.cmp](https://github.com/saghen/blink.cmp)             | Modern completion engine   |
-| [conform.nvim](https://github.com/stevearc/conform.nvim)     | Formatter with yamlfmt     |
-| [snacks.nvim](https://github.com/folke/snacks.nvim)          | Picker, terminal, explorer |
-| [noice.nvim](https://github.com/folke/noice.nvim)            | Command line UI            |
-| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Status line                |
-| [which-key.nvim](https://github.com/folke/which-key.nvim)    | Keybinding hints           |
-
-### Version Control & Editor
-
-| Plugin                                                    | Description      |
-| --------------------------------------------------------- | ---------------- |
-| [gitsigns.nvim](https://github.com/stevearc/conform.nvim) | Git decorations  |
-| [mini.diff](https://github.com/echasnovski/mini.diff)     | Diff view        |
-| [flash.nvim](https://github.com/folke/flash.nvim)         | Motion/search    |
-| [trouble.nvim](https://github.com/folke/trouble.nvim)     | Diagnostics list |
-
-### Language Support
-
-| Plugin                                                                | Description         |
-| --------------------------------------------------------------------- | ------------------- |
-| [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)            | LSP configurations  |
-| [mason.nvim](https://github.com/williamboman/mason.nvim)              | LSP server manager  |
-| [nvim-lint](https://github.com/mfussenegger/nvim-lint)                | Linter support      |
-| [SchemaStore.nvim](https://github.com/b0o/SchemaStore.nvim)           | JSON/YAML schemas   |
-| [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | Syntax highlighting |
-
-### AI & Automation
-
-| Plugin                                              | Description       |
-| --------------------------------------------------- | ----------------- |
-| [sidekick.nvim](https://github.com/LazyVim/LazyVim) | AI assistant      |
-| [yanky.nvim](https://github.com/gbprod/yanky.nvim)  | Improved yank/put |
-
-### Database & Kubernetes
-
-| Plugin                                                                           | Description        |
-| -------------------------------------------------------------------------------- | ------------------ |
-| [vim-dadbod](https://github.com/tpope/vim-dadbod)                                | Database interface |
-| [vim-dadbod-ui](https://github.com/kristijanhusak/vim-dadbod-ui)                 | TUI for Dadbod     |
-| [vim-dadbod-completion](https://github.com/kristijanhusak/vim-dadbod-completion) | DB completion      |
-| [venv-selector.nvim](https://github.com/linux-cultist/venv-selector.nvim)        | Python venv picker |
-
-### Utilities
-
-| Plugin                                                                             | Description             |
-| ---------------------------------------------------------------------------------- | ----------------------- |
-| [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)                  | TODO highlighting       |
-| [grug-far.nvim](https://github.com/LazyVim/grug-far.nvim)                          | Advanced search/replace |
-| [persistence.nvim](https://github.com/folke/persistence.nvim)                      | Session management      |
-| [render-markdown.nvim](https://github.com/meanderingstranger/render-markdown.nvim) | Markdown rendering      |
-| [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)           | Markdown preview        |
-
----
-
-## Keybindings
-
-### Insert Mode
-
-| Binding | Action                  |
-| ------- | ----------------------- |
-| `jj`    | Escape to Normal mode   |
-| `jk`    | Escape to Normal mode   |
-| `<A-j>` | Move current line down  |
-| `<A-k>` | Move current line up    |
-| `<CR>`  | Auto-indent and newline |
-
-### Normal Mode
-
-| Binding      | Action                               |
-| ------------ | ------------------------------------ |
-| `aa`         | Append (go to end of line in insert) |
-| `<A-j>`      | Move current line down               |
-| `<A-k>`      | Move current line up                 |
-| `<leader>k9` | Open K9s (if installed)              |
-
-### Visual Mode
-
-| Binding | Action              |
-| ------- | ------------------- |
-| `<A-j>` | Move selection down |
-| `<A-k>` | Move selection up   |
-
-### LazyVim Defaults
-
-| Binding      | Action                 |
-| ------------ | ---------------------- |
-| `<leader>`   | Show which-key popup   |
-| `<leader>f`  | Find files (picker)    |
-| `<leader>s`  | Search (live grep)     |
-| `<leader>sg` | Grep current word      |
-| `<leader>gb` | Git branches           |
-| `<leader>gc` | Git commits            |
-| `<leader>td` | Toggle diagnostics     |
-| `<leader>tt` | Toggle Trouble         |
-| `<leader>tp` | Toggle picker explorer |
-| `<leader>wq` | Save and quit          |
-
----
 
 ## Language Support
 
-### Python
+This config enables a lot of LazyVim language extras. Here's what's wired up:
 
-- **LSP**: Pyright
-- **Formatter**: ruff
-- **Linter**: ruff
-- **venv**: `venv-selector.nvim` (toggle with `<leader>cv`)
+| Language | LSP | Formatter | Linter |
+| --- | --- | --- | --- |
+| Python | ty (Astral) | ruff | ruff |
+| Go | gopls | gofumpt | — |
+| Rust | rust-analyzer | rustfmt | — |
+| TypeScript/JS | ts_ls | prettier | eslint |
+| Tailwind CSS | tailwindcss | prettier | — |
+| YAML | yamlls | yamlfmt | yamllint |
+| JSON | jsonls | prettier | — |
+| TOML | taplo | taplo | — |
+| SQL | sqlls | sqruff | — |
+| Docker | dockerls | — | — |
+| Terraform | terraformls | terraform fmt | — |
+| Helm | helm_ls | — | — |
+| Markdown | marksman | prettier | — |
+| Java | jdtls | — | — |
+| Lua | lua_ls (via LazyVim) | stylua | — |
 
-### Go
+> **Note:** Python uses [ty](https://github.com/astral-sh/ty), Astral's type checker — not pyright. This is set via `vim.g.lazyvim_python_lsp = "ty"` in `options.lua`.
 
-- **LSP**: gopls (via LazyVim extras)
-- **Formatter**: gofmt/gofumpt
+## Keybindings
 
-### YAML (Kubernetes)
+### Custom Mappings
 
-- **LSP**: yamlls with Kubernetes schemas
-- **Formatter**: yamlfmt
-- **Schemas**: K8s, GitHub Actions, Docker Compose, Argo Workflows, and more
+| Key | Mode | What it does |
+| --- | --- | --- |
+| `jj` / `jk` | Insert | Escape to normal mode |
+| `aa` | Normal | Jump to end of line and enter insert mode |
+| `Alt+j` / `Alt+k` | Normal, Insert, Visual | Move line(s) up/down |
 
-### Markdown
+### Tool Terminals (`<leader>t`)
 
-- **LSP**: marksman
-- **Preview**: markdown-preview.nvim (`:MarkdownPreview`)
-- **Rendering**: render-markdown.nvim
+These only appear if the tool is installed on your system:
 
-### SQL
+| Key | Tool |
+| --- | --- |
+| `<leader>tk` | K9s (Kubernetes) |
+| `<leader>td` | lazydocker |
+| `<leader>ta` | posting (API client) |
 
-- **LSP**: sqlls
-- **Client**: vim-dadbod
+### Handy LazyVim Defaults
 
----
+| Key | Action |
+| --- | --- |
+| `<leader>` | Which-key popup (shows all available bindings) |
+| `<leader>ff` | Find files |
+| `<leader>sg` | Live grep |
+| `<leader>gb` | Git branches |
+| `<leader>gc` | Git commits |
+| `<leader>xx` | Toggle Trouble diagnostics |
 
 ## Snippets
 
-Custom snippets are located in `~/.config/nvim/snippets/` and include:
+Custom snippets live in `snippets/` and are loaded via LuaSnip.
 
-### Kubernetes Snippets
+**Kubernetes** (`k8s-` prefix in YAML files): deployment, service, configmap, secret, ingress, statefulset, pvc, job, cronjob.
 
-| Prefix            | Description           |
-| ----------------- | --------------------- |
-| `k8s-deployment`  | Deployment manifest   |
-| `k8s-service`     | Service manifest      |
-| `k8s-configmap`   | ConfigMap manifest    |
-| `k8s-secret`      | Secret manifest       |
-| `k8s-ingress`     | Ingress manifest      |
-| `k8s-statefulset` | StatefulSet manifest  |
-| `k8s-pvc`         | PersistentVolumeClaim |
-| `k8s-job`         | Job manifest          |
-| `k8s-cronjob`     | CronJob manifest      |
+**Python**: `pmain` (main boilerplate), `req` (requests call), `sftp_` (paramiko SFTP), `logger` (logging setup), `classpy` (class template).
 
-### Other Snippets
+**Dockerfile**: `dockerfile-uv` — production multi-stage build with uv package manager.
 
-| File              | Prefixes                              |
-| ----------------- | ------------------------------------- |
-| `python.json`     | Python class, function, if/try blocks |
-| `javascript.json` | ES6+, React snippets                  |
-| `dockerfile.json` | Multi-stage builds                    |
-| `package.json`    | Common scripts                        |
-
----
-
-## Kubernetes Integration
-
-### K9s Integration
-
-If K9s is installed, access it with:
-
-```
-<leader>k9
-```
-
-### YAML Schema Configuration
-
-Kubernetes YAML files automatically get:
-
-- Schema validation
-- Schema-aware completion
-- Hover documentation
-- Format on save
-
-### Pre-configured Schemas
-
-```lua
--- From lua/plugins/kubernetes.lua
-kubernetes://*.yaml
-http://json.schemastore.org/github-workflow
-http://json.schemastore.org/github-action
-http://json.schemastore.org/chart
-https://json.schemastore.org/dependabot-v2
-https://json.schemastore.org/gitlab-ci
-https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
-https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json
-```
-
----
+**JavaScript/TypeScript**: 60+ snippets covering React components, TypeScript types, fetch patterns, and more.
 
 ## Database Integration
 
-### Pre-configured Connection
+Database connections are configured in `.lazy.lua`. The SQL extra gives you:
 
-Via a `~/.config/nvim/.lazy.lua` config, see [lazyvim.org/extras/lang/sql](https://www.lazyvim.org/extras/lang/sql)
+- `:DBUI` to open the Dadbod database browser
+- Auto-completion for table/column names in SQL buffers
+- Run queries and see results inline
 
-### Usage
+See [lazyvim.org/extras/lang/sql](https://www.lazyvim.org/extras/lang/sql) for details.
 
-| Command      | Action                       |
-| ------------ | ---------------------------- |
-| `:DB`        | Open Dadbod UI               |
-| `:DB <name>` | Connect to specific database |
-| `:DBS`       | List available connections   |
+## Notable Design Decisions
 
----
+- **Aggressive auto-save** — every text change writes all buffers to disk. No unsaved state, ever.
+- **macOS appearance sync** — reads `AppleInterfaceStyle` at startup to pick light/dark theme.
+- **Conditional tool keymaps** — K9s, lazydocker, and posting bindings only register if the binary is on `$PATH`.
+- **yamlfmt over prettier for YAML** — better Kubernetes support (preserves comments, handles multi-doc files).
+- **Prettier runs without config** — `lazyvim_prettier_needs_config = false`, so it formats even in projects without `.prettierrc`.
 
 ## Customization
 
-### Adding New Plugins
+### Add a plugin
 
-Create a new file in `lua/plugins/` or `lua/plugins/tweaks/`:
+Drop a file in `lua/plugins/`:
 
 ```lua
 -- lua/plugins/myplugin.lua
 return {
-  "author/myplugin",
-  opts = {}, -- plugin configuration
-  config = function() end, -- setup function
+  "author/plugin-name",
+  opts = {},
 }
 ```
 
-### Modifying Keybindings
+### Add a keybinding
 
-Edit `~/.config/nvim/lua/config/keymaps.lua`:
+Edit `lua/config/keymaps.lua`:
 
 ```lua
 vim.keymap.set("n", "<leader>my", function()
-  -- Your custom action
-end, { desc = "My custom keybinding" })
+  -- your action here
+end, { desc = "My custom thing" })
 ```
 
-### Changing Colorscheme
+### Change the theme
 
-Edit `lua/plugins/colorschema.lua` and change the `colorscheme` option.
+Edit `lua/plugins/colorschema.lua`. Dracula and boo-berry are already installed as alternates.
 
-### Formatter Configuration
+## Quick Reference
 
-Modify `lua/plugins/tweaks/conform.lua` to add or change formatters:
-
-```lua
-formatters_by_ft = {
-  yaml = { "yamlfmt" },
-  json = { "jq" },
-}
-```
-
-### Lua Formatting
-
-Edit `stylua.toml` to adjust formatting rules:
-
-```toml
-indent_type = "Spaces"
-indent_width = 2
-column_width = 120
-```
-
----
-
-## Commands Reference
-
-| Command        | Description                      |
-| -------------- | -------------------------------- |
-| `:Lazy`        | Open Lazy package manager        |
-| `:Mason`       | Manage LSPs, linters, formatters |
-| `:Checkhealth` | Check Neovim health              |
-| `:Lazy sync`   | Update all plugins               |
-| `:Format`      | Format current buffer            |
-| `:DBUI`        | Open database UI                 |
-| `:Sidekick`    | Open AI assistant                |
-
----
+| Command | What it does |
+| --- | --- |
+| `:Lazy` | Open plugin manager |
+| `:Lazy sync` | Update all plugins |
+| `:Mason` | Manage LSP servers, formatters, linters |
+| `:Checkhealth` | Run health checks |
+| `:Format` | Format current buffer |
+| `:DBUI` | Open database UI |
+| `:CodeDiff` | Side-by-side diff viewer |
 
 ## Troubleshooting
 
-### Plugin Issues
-
-```bash
-# Rebuild plugins
+**Plugins acting up?**
+```
 :Lazy clean
 :Lazy sync
-
-# Check health
-:Checkhealth
 ```
 
-### LSP Issues
-
-```bash
-# Restart LSP
-:LspStart
-:LspStop
-:LspInfo
+**LSP not working?**
 ```
-
-### Clear Cache
-
-```bash
-# Clear Lazy cache
-:Lazy load
+:LspInfo        -- see what's attached
+:LspStop        -- stop current servers
+:LspStart       -- restart them
+:Mason          -- check if the server is installed
 ```
 
 ---
 
-## Credits
-
-- [LazyVim](https://lazyvim.github.io/) - Base configuration
-- [LazyVim Extras](https://lazyvim.github.io/extras) - Language support
-- [Catppuccin](https://github.com/catppuccin/nvim) - Theme
+Built on [LazyVim](https://lazyvim.github.io/) with [Catppuccin](https://github.com/catppuccin/nvim).
