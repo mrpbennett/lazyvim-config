@@ -1,4 +1,4 @@
-# Neovim Config
+# LazyVim :zzz:
 
 My daily-driver Neovim setup, built on [LazyVim](https://lazyvim.github.io/) and tuned for full-stack work across Python, Go, Rust, TypeScript, Kubernetes, Terraform, and more.
 
