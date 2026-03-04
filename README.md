@@ -1,6 +1,10 @@
-# LazyVim :zzz:
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/292349/213446185-2db63fd5-8c84-459c-9f04-e286382d6e80.png">
+</div>
 
-My daily-driver Neovim setup, built on [LazyVim](https://lazyvim.github.io/) and tuned for full-stack work across Python, Go, Rust, TypeScript, Kubernetes, Terraform, and more.
+<hr>
+
+My daily-driver Neovim setup, built on [LazyVim](https://lazyvim.github.io/) and tuned for work across Python, Go, Kubernetes, Terraform, and more.
 
 ## What You Get
 
