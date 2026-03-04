@@ -4,6 +4,11 @@ return {
     lazy = true,
     name = "catppuccin",
     opts = {
+      flavour = "auto",
+      background = {
+        light = "latte",
+        dark = "mocha",
+      },
       lsp_styles = {
         underlines = {
           errors = { "undercurl" },
@@ -51,6 +56,16 @@ return {
       },
     },
   },
+
+  -- add dracula
+  { "Mofiqul/dracula.nvim" },
+  { "mrpbennett/boo-berry.nvim" },
+
+  -- Set Theme here:
+  -- opts:
+  --  catppuccin
+  --  dracula
+  --  boo-berry
   {
     "LazyVim/LazyVim",
     opts = {

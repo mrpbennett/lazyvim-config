@@ -33,6 +33,9 @@ return {
           ignored = true,
           hidden = true,
         },
+        files = {
+          hidden = true,
+        },
       },
     },
     ---

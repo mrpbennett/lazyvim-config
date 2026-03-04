@@ -15,3 +15,18 @@ vim.g.lazyvim_prettier_needs_config = false
 
 -- disable swapfile
 vim.opt.swapfile = false
+
+-- Auto-detect macOS dark/light mode
+local function get_macos_appearance()
+  local handle = io.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    if result:match("Dark") then
+      return "dark"
+    end
+  end
+  return "light"
+end
+
+vim.o.background = get_macos_appearance()

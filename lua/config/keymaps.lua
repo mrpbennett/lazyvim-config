@@ -1,4 +1,3 @@
--- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 --
@@ -27,6 +26,17 @@ if vim.fn.executable("k9s") == 1 then
   -- Add icon via which-key
   require("which-key").add({
     { "<leader>tk", icon = { icon = "󱃾", color = "blue" } },
+  })
+end
+
+-- Pop a terminal window with LazyDocker
+if vim.fn.executable("lazydocker") == 1 then
+  vim.keymap.set("n", "<leader>td", function()
+    Snacks.terminal("lazydocker")
+  end, { desc = "LazyDocker" })
+  -- Add icon via which-key
+  require("which-key").add({
+    { "<leader>td", icon = { icon = "󱃾", color = "blue" } },
   })
 end
 
