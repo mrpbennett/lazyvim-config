@@ -40,14 +40,37 @@ if vim.fn.executable("lazydocker") == 1 then
   })
 end
 
--- Pop Posting terminal
-if vim.fn.executable("posting") == 1 then
-  vim.keymap.set("n", "<leader>ta", function()
-    Snacks.terminal("posting")
-  end, { desc = "Posting API" })
+-- -- Pop Posting terminal
+-- if vim.fn.executable("posting") == 1 then
+--   vim.keymap.set("n", "<leader>ta", function()
+--     Snacks.terminal("posting")
+--   end, { desc = "Posting API" })
+--
+--   -- Add icon via which-key
+--   require("which-key").add({
+--     { "<leader>ta", icon = { icon = "󱂛", color = "orange" } },
+--   })
+-- end
+--
+local gh_dash_cmd
+
+if vim.fn.executable("gh-dash") == 1 then
+  gh_dash_cmd = "gh-dash"
+elseif vim.fn.executable("gh") == 1 then
+  vim.fn.system({ "gh", "dash", "--help" })
+  if vim.v.shell_error == 0 then
+    gh_dash_cmd = "gh dash"
+  end
+end
+
+-- Pop GH-Dash window
+if gh_dash_cmd then
+  vim.keymap.set("n", "<leader>tg", function()
+    Snacks.terminal(gh_dash_cmd)
+  end, { desc = "GH-Dash" })
 
   -- Add icon via which-key
   require("which-key").add({
-    { "<leader>ta", icon = { icon = "󱂛", color = "orange" } },
+    { "<leader>tg", icon = { icon = "", color = "orange" } },
   })
 end

@@ -18,17 +18,16 @@ My daily-driver Neovim setup, built on [LazyVim](https://lazyvim.github.io/) and
 
 ## Prerequisites
 
-| Tool | Purpose | Install |
-| --- | --- | --- |
-| **Neovim 0.10+** | Editor | [neovim.io](https://neovim.io) |
-| **Git** | Plugin management | Required |
-| **ripgrep** | Fast search | `brew install ripgrep` |
-| **fd** | File finding | `brew install fd` |
-| **yamlfmt** | YAML formatting | `go install github.com/google/yamlfmt@latest` |
-| **sqruff** | SQL formatting | Optional |
-| **k9s** | Kubernetes TUI | Optional — `brew install k9s` |
-| **lazydocker** | Docker TUI | Optional — `brew install lazydocker` |
-| **posting** | API client TUI | Optional — `pipx install posting` |
+| Tool             | Purpose           | Install                                       |
+| ---------------- | ----------------- | --------------------------------------------- |
+| **Neovim 0.10+** | Editor            | [neovim.io](https://neovim.io)                |
+| **Git**          | Plugin management | Required                                      |
+| **ripgrep**      | Fast search       | `brew install ripgrep`                        |
+| **fd**           | File finding      | `brew install fd`                             |
+| **yamlfmt**      | YAML formatting   | `go install github.com/google/yamlfmt@latest` |
+| **sqruff**       | SQL formatting    | Optional                                      |
+| **k9s**          | Kubernetes TUI    | Optional — `brew install k9s`                 |
+| **lazydocker**   | Docker TUI        | Optional — `brew install lazydocker`          |
 
 ## Project Layout
 
@@ -70,23 +69,23 @@ My daily-driver Neovim setup, built on [LazyVim](https://lazyvim.github.io/) and
 
 This config enables a lot of LazyVim language extras. Here's what's wired up:
 
-| Language | LSP | Formatter | Linter |
-| --- | --- | --- | --- |
-| Python | ty (Astral) | ruff | ruff |
-| Go | gopls | gofumpt | — |
-| Rust | rust-analyzer | rustfmt | — |
-| TypeScript/JS | ts_ls | prettier | eslint |
-| Tailwind CSS | tailwindcss | prettier | — |
-| YAML | yamlls | yamlfmt | yamllint |
-| JSON | jsonls | prettier | — |
-| TOML | taplo | taplo | — |
-| SQL | sqlls | sqruff | — |
-| Docker | dockerls | — | — |
-| Terraform | terraformls | terraform fmt | — |
-| Helm | helm_ls | — | — |
-| Markdown | marksman | prettier | — |
-| Java | jdtls | — | — |
-| Lua | lua_ls (via LazyVim) | stylua | — |
+| Language      | LSP                  | Formatter     | Linter   |
+| ------------- | -------------------- | ------------- | -------- |
+| Python        | ty (Astral)          | ruff          | ruff     |
+| Go            | gopls                | gofumpt       | —        |
+| Rust          | rust-analyzer        | rustfmt       | —        |
+| TypeScript/JS | ts_ls                | prettier      | eslint   |
+| Tailwind CSS  | tailwindcss          | prettier      | —        |
+| YAML          | yamlls               | yamlfmt       | yamllint |
+| JSON          | jsonls               | prettier      | —        |
+| TOML          | taplo                | taplo         | —        |
+| SQL           | sqlls                | sqruff        | —        |
+| Docker        | dockerls             | —             | —        |
+| Terraform     | terraformls          | terraform fmt | —        |
+| Helm          | helm_ls              | —             | —        |
+| Markdown      | marksman             | prettier      | —        |
+| Java          | jdtls                | —             | —        |
+| Lua           | lua_ls (via LazyVim) | stylua        | —        |
 
 > **Note:** Python uses [ty](https://github.com/astral-sh/ty), Astral's type checker — not pyright. This is set via `vim.g.lazyvim_python_lsp = "ty"` in `options.lua`.
 
@@ -94,32 +93,32 @@ This config enables a lot of LazyVim language extras. Here's what's wired up:
 
 ### Custom Mappings
 
-| Key | Mode | What it does |
-| --- | --- | --- |
-| `jj` / `jk` | Insert | Escape to normal mode |
-| `aa` | Normal | Jump to end of line and enter insert mode |
-| `Alt+j` / `Alt+k` | Normal, Insert, Visual | Move line(s) up/down |
+| Key               | Mode                   | What it does                              |
+| ----------------- | ---------------------- | ----------------------------------------- |
+| `jj` / `jk`       | Insert                 | Escape to normal mode                     |
+| `aa`              | Normal                 | Jump to end of line and enter insert mode |
+| `Alt+j` / `Alt+k` | Normal, Insert, Visual | Move line(s) up/down                      |
 
 ### Tool Terminals (`<leader>t`)
 
 These only appear if the tool is installed on your system:
 
-| Key | Tool |
-| --- | --- |
+| Key          | Tool             |
+| ------------ | ---------------- |
 | `<leader>tk` | K9s (Kubernetes) |
-| `<leader>td` | lazydocker |
-| `<leader>ta` | posting (API client) |
+| `<leader>td` | lazydocker       |
+| `<leader>tg` | GH-Dash          |
 
 ### Handy LazyVim Defaults
 
-| Key | Action |
-| --- | --- |
-| `<leader>` | Which-key popup (shows all available bindings) |
-| `<leader>ff` | Find files |
-| `<leader>sg` | Live grep |
-| `<leader>gb` | Git branches |
-| `<leader>gc` | Git commits |
-| `<leader>xx` | Toggle Trouble diagnostics |
+| Key          | Action                                         |
+| ------------ | ---------------------------------------------- |
+| `<leader>`   | Which-key popup (shows all available bindings) |
+| `<leader>ff` | Find files                                     |
+| `<leader>sg` | Live grep                                      |
+| `<leader>gb` | Git branches                                   |
+| `<leader>gc` | Git commits                                    |
+| `<leader>xx` | Toggle Trouble diagnostics                     |
 
 ## Snippets
 
@@ -147,7 +146,7 @@ See [lazyvim.org/extras/lang/sql](https://www.lazyvim.org/extras/lang/sql) for d
 
 - **Aggressive auto-save** — every text change writes all buffers to disk. No unsaved state, ever.
 - **macOS appearance sync** — reads `AppleInterfaceStyle` at startup to pick light/dark theme.
-- **Conditional tool keymaps** — K9s, lazydocker, and posting bindings only register if the binary is on `$PATH`.
+- **Conditional tool keymaps** — K9s and lazydocker bindings register when their binaries are on `$PATH`; GH-Dash works with either a `gh-dash` binary or the `gh dash` GitHub CLI extension.
 - **yamlfmt over prettier for YAML** — better Kubernetes support (preserves comments, handles multi-doc files).
 - **Prettier runs without config** — `lazyvim_prettier_needs_config = false`, so it formats even in projects without `.prettierrc`.
 
@@ -181,25 +180,27 @@ Edit `lua/plugins/colorschema.lua`. Dracula and boo-berry are already installed 
 
 ## Quick Reference
 
-| Command | What it does |
-| --- | --- |
-| `:Lazy` | Open plugin manager |
-| `:Lazy sync` | Update all plugins |
-| `:Mason` | Manage LSP servers, formatters, linters |
-| `:Checkhealth` | Run health checks |
-| `:Format` | Format current buffer |
-| `:DBUI` | Open database UI |
-| `:CodeDiff` | Side-by-side diff viewer |
+| Command        | What it does                            |
+| -------------- | --------------------------------------- |
+| `:Lazy`        | Open plugin manager                     |
+| `:Lazy sync`   | Update all plugins                      |
+| `:Mason`       | Manage LSP servers, formatters, linters |
+| `:Checkhealth` | Run health checks                       |
+| `:Format`      | Format current buffer                   |
+| `:DBUI`        | Open database UI                        |
+| `:CodeDiff`    | Side-by-side diff viewer                |
 
 ## Troubleshooting
 
 **Plugins acting up?**
+
 ```
 :Lazy clean
 :Lazy sync
 ```
 
 **LSP not working?**
+
 ```
 :LspInfo        -- see what's attached
 :LspStop        -- stop current servers
