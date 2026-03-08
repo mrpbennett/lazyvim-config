@@ -1,3 +1,6 @@
+-- https://github.com/catppuccin/nvim
+-- https://github.com/booberrytheme/boo-berry.nvim
+-- https://github.com/Mofiqul/dracula.nvim
 return {
   {
     "catppuccin/nvim",
