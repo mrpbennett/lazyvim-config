@@ -29,6 +29,32 @@ My daily-driver Neovim setup, built on [LazyVim](https://lazyvim.github.io/) and
 | **k9s**          | Kubernetes TUI    | Optional — `brew install k9s`                 |
 | **lazydocker**   | Docker TUI        | Optional — `brew install lazydocker`          |
 
+## Install
+
+Make a backup of your current Neovim files:
+
+```bash
+# required
+mv ~/.config/nvim{,.bak}
+
+# optional but recommended
+mv ~/.local/share/nvim{,.bak}
+mv ~/.local/state/nvim{,.bak}
+mv ~/.cache/nvim{,.bak}
+```
+
+Clone the repo:
+
+```bash
+git clone https://github.com/mrpbennett/lazyvim-config.git ~/.config/nvim
+```
+
+Start nvim
+
+```bash
+nvim
+```
+
 ## Project Layout
 
 ```
