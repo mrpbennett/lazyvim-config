@@ -3,8 +3,12 @@
 -- Add any additional options here
 --
 vim.g.codeium_os = "Darwin"
+
 -- Stop auto comments
 vim.opt.formatoptions:remove({ "c", "r", "o" })
+
+-- Enable mouse mode, can be useful for resizing splits for example!
+vim.o.mouse = "a"
 
 -- Python
 vim.g.lazyvim_python_lsp = "ty"

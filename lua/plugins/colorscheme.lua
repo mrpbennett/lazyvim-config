@@ -60,19 +60,26 @@ return {
     },
   },
 
-  -- add dracula
+  -- dracula
   { "Mofiqul/dracula.nvim" },
+  -- boo-berry
   { "mrpbennett/boo-berry.nvim" },
-
+  -- gruvbox
+  { "ellisonleao/gruvbox.nvim" },
+  -- vault
+  { "mrpbennett/vault" },
+  --
   -- Set Theme here:
   -- opts:
   --  catppuccin
   --  dracula
   --  boo-berry
+  --  gruvbox
+  --  vault
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "catppuccin-macchiato",
     },
   },
 }
