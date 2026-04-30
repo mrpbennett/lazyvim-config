@@ -31,7 +31,7 @@ My daily-driver Neovim setup, built on [LazyVim](https://lazyvim.github.io/) and
 
 ## Install
 
-Make a backup of your current Neovim files:
+Mz ake a backup of your current Neovim files:
 
 ```bash
 # required

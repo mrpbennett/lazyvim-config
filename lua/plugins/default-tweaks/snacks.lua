@@ -29,12 +29,17 @@ return {
     },
     ---
     picker = {
+      exclude = {
+        ".git",
+        ".venv",
+      },
       sources = {
         explorer = {
           ignored = true,
           hidden = true,
         },
         files = {
+          ignored = true,
           hidden = true,
         },
       },

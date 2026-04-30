@@ -10,7 +10,7 @@ return {
       flavour = "auto",
       background = {
         light = "latte",
-        dark = "mocha",
+        dark = "macchiato",
       },
       lsp_styles = {
         underlines = {
@@ -79,6 +79,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
+      -- colorscheme = "catppuccin-macchiato",
       colorscheme = "catppuccin-macchiato",
     },
   },
