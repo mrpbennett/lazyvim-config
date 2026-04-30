@@ -32,6 +32,7 @@ return {
       exclude = {
         ".git",
         ".venv",
+        ".DS_Store",
       },
       sources = {
         explorer = {
