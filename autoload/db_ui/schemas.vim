@@ -37,7 +37,7 @@ let s:postgres_list_schema_query = "
 if empty(get(g:, 'db_ui_use_postgres_views', 1))
   let postgres_tables_and_views = "
         \ SELECT table_schema, table_name FROM information_schema.tables ;"
-elsesegments.eu_site_specialties_daily
+else
   let postgres_tables_and_views = "
         \ SELECT table_schema, table_name FROM information_schema.tables UNION ALL
         \ select schemaname, matviewname from pg_matviews;"
