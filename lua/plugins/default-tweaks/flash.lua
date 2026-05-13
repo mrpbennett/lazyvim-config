@@ -13,4 +13,7 @@ return {
       },
     },
   },
+  keys = {
+    { "S", mode = { "n", "x", "o" }, false }, -- disables the S binding
+  },
 }

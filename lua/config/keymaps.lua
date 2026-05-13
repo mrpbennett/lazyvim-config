@@ -13,6 +13,10 @@ vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
+-- VIMDADBOD
+-- vim.keymap.set("n", "<leader><CR>", "<Plug>(DBUI_ExecuteQuery)", { buffer = true, silent = true })
+-- vim.keymap.set("v", "<leader><CR>", "<Plug>(DBUI_ExecuteQuery)", { buffer = true, silent = true })
+
 -- Pop a terminal window with K9s
 if vim.fn.executable("k9s") == 1 then
   vim.keymap.set("n", "<leader>tk", function()
