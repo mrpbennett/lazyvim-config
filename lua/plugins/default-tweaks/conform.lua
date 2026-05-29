@@ -8,8 +8,12 @@ return {
     },
     formatters = {
       sqruff = {
-        command = "sqruff",
-        args = { "fix", "--config", vim.fn.expand("~/.config/sqruff/.sqruff"), "-" },
+        -- sqruff fix emits an extra trailing newline on stdout; strip trailing blank lines via sed.
+        command = "sh",
+        args = {
+          "-c",
+          "sqruff fix --config " .. vim.fn.expand("~/.config/sqruff/.sqruff") .. " - | sed -e :a -e '/^$/{$d;N;ba' -e '}'",
+        },
         stdin = true,
       },
       yamlfmt = {

@@ -68,6 +68,10 @@ return {
   { "ellisonleao/gruvbox.nvim" },
   -- vault
   { "mrpbennett/vault" },
+  -- kanagawa
+  { "rebelot/kanagawa.nvim" },
+  -- everforest
+  { "sainnhe/everforest" },
   --
   -- Set Theme here:
   -- opts:
@@ -76,6 +80,8 @@ return {
   --  boo-berry
   --  gruvbox
   --  vault
+  --  kanagawa
+  --  everforest
   {
     "LazyVim/LazyVim",
     opts = {
