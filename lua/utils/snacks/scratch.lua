@@ -104,7 +104,7 @@ function M.new_scratch(filetypes)
       vim.schedule(function()
         local ft = (item and item.text) or pattern
         if ft and ft ~= "" then
-          Snacks.scratch({ ft = ft })
+          Snacks.scratch({ ft = ft, id = tostring(os.time()) })
         end
       end)
     end,
