@@ -18,6 +18,7 @@ return {
           hints = { "undercurl" },
           warnings = { "undercurl" },
           information = { "undercurl" },
+          ok = { "undercurl" },
         },
       },
       integrations = {
@@ -41,7 +42,7 @@ return {
         neotree = true,
         noice = true,
         notify = true,
-        snacks = true,
+        snacks = { enabled = true },
         telescope = true,
         treesitter_context = true,
         which_key = true,
@@ -68,8 +69,6 @@ return {
   { "ellisonleao/gruvbox.nvim" },
   -- vault
   { "mrpbennett/vault" },
-  -- kanagawa
-  { "rebelot/kanagawa.nvim" },
   -- everforest
   { "sainnhe/everforest" },
   --
@@ -80,13 +79,11 @@ return {
   --  boo-berry
   --  gruvbox
   --  vault
-  --  kanagawa
   --  everforest
   {
     "LazyVim/LazyVim",
     opts = {
-      -- colorscheme = "catppuccin-macchiato",
-      colorscheme = "catppuccin-macchiato",
+      colorscheme = vim.o.background == "dark" and "catppuccin-macchiato" or "catppuccin-latte",
     },
   },
 }
