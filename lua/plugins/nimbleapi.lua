@@ -5,7 +5,7 @@ return {
     -- branch = "dev",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "mistweaverco/kulala.nvim",
+      --"mistweaverco/kulala.nvim",
     },
     opts = {
       explorer = {
