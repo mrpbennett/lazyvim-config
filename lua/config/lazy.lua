@@ -25,9 +25,6 @@ require("lazy").setup({
     -- Default LazyVim Plugins but with my custom adjustments.
     { import = "plugins/default-tweaks" },
 
-    -- Use Eslint for fix on save and prettier for formatting
-    { import = "lazyvim.plugins.extras.linting.eslint" },
-    { import = "lazyvim.plugins.extras.formatting.prettier" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.

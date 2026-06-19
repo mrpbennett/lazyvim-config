@@ -6,8 +6,10 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 --
--- AutoSave on Focus Lost
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+-- AutoSave on focus/buffer leave
+local autosave = vim.api.nvim_create_augroup("autosave", { clear = true })
+vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
+  group = autosave,
   pattern = { "*" },
   command = "silent! wall",
   nested = true,

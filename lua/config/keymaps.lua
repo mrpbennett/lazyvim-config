@@ -4,18 +4,11 @@
 vim.keymap.set("i", "jj", "<Esc>", { noremap = false })
 vim.keymap.set("i", "jk", "<Esc>", { noremap = false })
 
--- Pressing 'aa' in normal mode will take you to the end of the line in insert mode
-vim.keymap.set("n", "aa", "A", { noremap = false })
-
 -- TIP: Disable arrow keys in normal mode
 vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
 vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
-
--- VIMDADBOD
--- vim.keymap.set("n", "<leader><CR>", "<Plug>(DBUI_ExecuteQuery)", { buffer = true, silent = true })
--- vim.keymap.set("v", "<leader><CR>", "<Plug>(DBUI_ExecuteQuery)", { buffer = true, silent = true })
 
 -- Pop a terminal window with K9s
 if vim.fn.executable("k9s") == 1 then
@@ -56,11 +49,6 @@ local gh_dash_cmd
 
 if vim.fn.executable("gh-dash") == 1 then
   gh_dash_cmd = "gh-dash"
-elseif vim.fn.executable("gh") == 1 then
-  vim.fn.system({ "gh", "dash", "--help" })
-  if vim.v.shell_error == 0 then
-    gh_dash_cmd = "gh dash"
-  end
 end
 
 -- Pop GH-Dash window

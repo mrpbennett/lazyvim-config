@@ -6,8 +6,16 @@ return {
         yamlls = {
           settings = {
             yaml = {
+              schemaStore = {
+                enable = true,
+                url = "https://www.schemastore.org/api/json/catalog.json",
+              },
               schemas = {
-                kubernetes = "*.yaml",
+                kubernetes = {
+                  "*/k8s/**/*.yaml",
+                  "*/kubernetes/**/*.yaml",
+                  "*/manifests/**/*.yaml",
+                },
               },
             },
           },

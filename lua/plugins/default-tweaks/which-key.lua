@@ -4,11 +4,9 @@ return {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
-      preset = "modern",
+      preset = "helix",
       spec = {
-        {
-          { "<leader>t", group = "tools", icon = { icon = "󱁤" } },
-        },
+        { "<leader>t", group = "tools", icon = { icon = "󱁤" } },
       },
     },
   },

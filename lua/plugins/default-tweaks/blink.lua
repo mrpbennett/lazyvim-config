@@ -2,7 +2,7 @@
 return {
   {
     "saghen/blink.cmp",
-    dependecies = { "rafamadriz/friendly-snippets" },
+    dependencies = { "rafamadriz/friendly-snippets" },
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
