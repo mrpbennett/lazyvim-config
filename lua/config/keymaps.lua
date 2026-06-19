@@ -22,6 +22,19 @@ if vim.fn.executable("k9s") == 1 then
   })
 end
 
+-- Pop a terminal window with Hunk
+if vim.fn.executable("hunk") == 1 then
+  vim.keymap.set("n", "<leader>thd", function()
+    Snacks.terminal("hunk diff")
+  end, { desc = "Hunk Diff" })
+  vim.keymap.set("n", "<leader>ths", function()
+    Snacks.terminal("hunk show")
+  end, { desc = "Hunk Show" })
+  require("which-key").add({
+    { "<leader>th", group = "Hunk", icon = { icon = "󱃾", color = "green" } },
+  })
+end
+
 -- Pop a terminal window with LazyDocker
 if vim.fn.executable("lazydocker") == 1 then
   vim.keymap.set("n", "<leader>td", function()
