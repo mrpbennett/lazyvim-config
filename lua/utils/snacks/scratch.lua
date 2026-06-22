@@ -21,7 +21,6 @@ end
 
 -- snacks.scratch.File has optional cwd / branch / icon, so guard every field
 local function process_item(item)
-  item._path = item.file
   item.branch = item.branch and ("branch:%s"):format(item.branch) or ""
   item.cwd = item.cwd and vim.fn.fnamemodify(item.cwd, ":p:~") or ""
   item.icon = item.icon or Snacks.util.icon(item.ft, "filetype")

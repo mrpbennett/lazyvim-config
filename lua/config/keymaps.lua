@@ -1,7 +1,6 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 --
-vim.keymap.set("i", "jj", "<Esc>", { noremap = false })
 vim.keymap.set("i", "jk", "<Esc>", { noremap = false })
 
 -- TIP: Disable arrow keys in normal mode
@@ -27,11 +26,14 @@ if vim.fn.executable("hunk") == 1 then
   vim.keymap.set("n", "<leader>thd", function()
     Snacks.terminal("hunk diff")
   end, { desc = "Hunk Diff" })
+
   vim.keymap.set("n", "<leader>ths", function()
     Snacks.terminal("hunk show")
   end, { desc = "Hunk Show" })
+
+  -- Add icon via which-key
   require("which-key").add({
-    { "<leader>th", group = "Hunk", icon = { icon = "󱃾", color = "green" } },
+    { "<leader>th", group = "Hunk", icon = { icon = "", color = "green" } },
   })
 end
 
@@ -40,6 +42,7 @@ if vim.fn.executable("lazydocker") == 1 then
   vim.keymap.set("n", "<leader>td", function()
     Snacks.terminal("lazydocker")
   end, { desc = "LazyDocker" })
+
   -- Add icon via which-key
   require("which-key").add({
     { "<leader>td", icon = { icon = "󱃾", color = "blue" } },
@@ -51,23 +54,17 @@ if vim.fn.executable("bucky") == 1 then
   vim.keymap.set("n", "<leader>tb", function()
     Snacks.terminal("bucky")
   end, { desc = "Bucky" })
+
   -- Add icon via which-key
   require("which-key").add({
     { "<leader>tb", icon = { icon = "󱐕", color = "orange" } },
   })
 end
 
---
-local gh_dash_cmd
-
-if vim.fn.executable("gh-dash") == 1 then
-  gh_dash_cmd = "gh-dash"
-end
-
 -- Pop GH-Dash window
-if gh_dash_cmd then
+if vim.fn.executable("gh-dash") == 1 then
   vim.keymap.set("n", "<leader>tg", function()
-    Snacks.terminal(gh_dash_cmd)
+    Snacks.terminal("gh-dash")
   end, { desc = "GH-Dash" })
 
   -- Add icon via which-key

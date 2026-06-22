@@ -6,18 +6,12 @@
 -- Stop auto comments
 vim.opt.formatoptions:remove({ "c", "r", "o" })
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.o.mouse = "a"
-
 -- Python
 vim.g.lazyvim_python_lsp = "ty"
 vim.g.lazyvim_python_ruff = "ruff"
 
 -- Disable the option to require a Prettier config file
 vim.g.lazyvim_prettier_needs_config = false
-
--- disable swapfile
-vim.opt.swapfile = false
 
 -- Auto-detect macOS dark/light mode
 local function get_macos_appearance()

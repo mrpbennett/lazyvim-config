@@ -6,6 +6,15 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 --
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("sql_indent", { clear = true }),
+  pattern = "sql",
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+  end,
+})
+
 -- AutoSave on focus/buffer leave
 local autosave = vim.api.nvim_create_augroup("autosave", { clear = true })
 vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
